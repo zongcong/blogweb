@@ -2,15 +2,20 @@
  **axios服务配置文件
  */
 import axios from 'axios';
-// import { Message, MessageBox } from 'element-ui';
-import QS from 'qs'
+import { message } from 'antd';
+import QS from 'qs';
 import config from '../config'
 // 创建实例
 const service = axios.create({
   baseURL: config.BASE_API, // 使用代理
   timeout: 30000, // 请求超时时间
   method: 'post'
-})
+});
+
+message.config({
+  duration: 2,
+  maxCount: 1,
+});
 
 
 // request拦截器
@@ -67,69 +72,20 @@ const fetch = function (config) {
         return checkStatus(response)
       })
       .then(result => {
-        // console.log(result)
         // 处理服务器错误
         if (result.err) {
-          // Message.error(result.message);
-          reject(result)
+          reject(result);
         }
-        let res = result.data
-        // 60002 10007账号密码错误  10018为第一次登陆  10019未绑定联系方式  90000004已撤单 90000005已售出
-        if (
-          res.code === '20000' ||
-          res.code === '10018' ||
-          res.code === '60002' ||
-          res.code === '10007' ||
-          res.code === '10019' ||
-          res.code === '90000004' ||
-          res.code === '90000005' ||
-          res.code === '90002005'
-        ) {
-          let resolves = res.code === '20000' ? res.data : res
-          resolve(resolves)
+
+        if (result.data.code === '20000') {
+          let res = result.data;
+          let resolves = res.code === '20000' ? res.data : res;
+          resolve(resolves);
         } else {
-          // 系统停市
-          if (res.code === '90002006') {
-            window.vm.$router.push('/maintenance')
-            return
-          }
-          // 登录超时
-          if (res.code === '20003') {
-            window.vm.$store.dispatch('SetUserInfo', '')
-            if (window.vm.$route.path !== '/tradeIndex') {
-              // 登录超时，请重新登录
-              // Message.error(window.vm.$t('latest.type3'));
-            }
-            window.vm.$router.push('/tradeIndex')
-            window.vm.$store.dispatch('SetShowLogin', true)
-            reject(res)
-          } else {
-            if (
-              res.code === '20007' ||
-              res.code === '700005' ||
-              res.code === '710001' ||
-              res.code === '710002' ||
-              res.code === '710003' ||
-              res.code === '710005' ||
-              res.code === '710006' ||
-              res.code === '710008' ||
-              res.code === '710011' ||
-              res.code === '710012' ||
-              res.code === '710013' ||
-              res.code === '710015' ||
-              res.code === '710016' ||
-              res.code === '710020' ||
-              res.code === '710023' ||
-              res.code === '710025'
-            ) {
-              // 系统超时请稍后重试
-              // Message.error(window.vm.$t('latest.type4'));
-            } else {
-              // Message.error(res.msg);
-            }
-            reject(res)
-          }
+          message.warning(result.data.desc);
+          reject(result);
         }
+
       })
       .catch(error => {
         reject(error)
@@ -141,7 +97,7 @@ const fetch = function (config) {
 function checkStatus (response) {
   // 如果http状态码正常，则直接返回数据
   // console.log('checkStatus', response);
-  let status = response.status
+  let status = response.status;
   if (response && (status === 200 || status === 304)) {
     return response
   }

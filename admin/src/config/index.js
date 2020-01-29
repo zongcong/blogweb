@@ -1,3 +1,9 @@
+import {JSEncrypt} from 'jsencrypt';
+export const JSA = (str, key) => {
+  let encrypt = new JSEncrypt();
+  encrypt.setPublicKey(key);
+  return encrypt.encrypt(str);
+}
 export default {
   BASE_API: '/FEApi'
 }

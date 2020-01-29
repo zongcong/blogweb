@@ -11,7 +11,7 @@ function MarkdownEditor(props, ref) {
   const {options, mode, height, language, value} = props;
   const childRef = useRef();
   let editorId = 'markdown-editor-' + +new Date() + ((Math.random() * 1000).toFixed(0) + '');
-  const [id, setId] = useState(editorId);
+  const [id] = useState(editorId);
 
   useImperativeHandle(ref,() => {
     return {
@@ -46,6 +46,7 @@ function MarkdownEditor(props, ref) {
     editor.on('change', () => {
       getValue()
     });
+    console.log('init', editor);
   };
 
   useEffect(() => {
@@ -53,9 +54,10 @@ function MarkdownEditor(props, ref) {
     return() => {
       if (!editor) return;
       editor.off('change');
+      console.log('remove', editor);
       editor.remove();
     }
-  }, []);
+  });
 
   const setValue = (value) => {
     editor.setValue(value)
@@ -70,6 +72,7 @@ function MarkdownEditor(props, ref) {
   }
 
   const getHtml = () => {
+    console.log(editor)
     return editor.getHtml()
   }
 

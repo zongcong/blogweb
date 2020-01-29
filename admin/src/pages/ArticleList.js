@@ -12,42 +12,50 @@ function ArticleList(props) {
       title: '标题',
       dataIndex: 'title',
       key: 'title',
-      render: text => <a>{text}</a>,
+      render: text => <span>{text}</span>,
     },
     {
       title: '类别',
-      dataIndex: 'typeName',
-      key: 'typeName',
+      dataIndex: 'articleType',
+      key: 'articleType',
+      render: text => <span>{text}</span>,
     },
     {
       title: '发布时间',
-      dataIndex: 'addTime',
-      key: 'addTime',
+      dataIndex: 'releaseTime',
+      key: 'releaseTime',
     },
     {
       title: '集数',
       key: 'part_count',
       dataIndex: 'part_count',
-      render: tags => (
-        <span>
-        {tags.map(tag => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </span>
-      ),
+      // render: tags => (
+      //   <span>
+      //   {tags ? tags.map(tag => {
+      //     let color = tag.length > 5 ? 'geekblue' : 'green';
+      //     if (tag === 'loser') {
+      //       color = 'volcano';
+      //     }
+      //     return (
+      //       <Tag color={color} key={tag}>
+      //         {tag.toUpperCase()}
+      //       </Tag>
+      //     );
+      //   }) : ''}
+      // </span>
+      // ),
     },
     {
       title: '浏览量',
       dataIndex: 'view_count',
-      key: 'view_count'
+      key: 'view_count',
+      render: text => <span>{text}</span>,
+    },
+    {
+      title: '状态',
+      dataIndex: 'releaseType',
+      key: 'releaseType',
+      render: text => <span>{text === '1' ? '已发布' : '草稿'}</span>,
     },
     {
       title: '操作',
@@ -61,34 +69,21 @@ function ArticleList(props) {
     },
   ];
 
-  const data = [
-    {
-      key: '1',
-      title: 'John Brown',
-      typeName: 32,
-      addTime: 'New York No. 1 Lake Park',
-      view_count: '1',
-      part_count: ['nice', 'developer'],
-    },
-    {
-      key: '2',
-      title: 'Jim Green',
-      typeName: 42,
-      addTime: 'London No. 1 Lake Park',
-      view_count: '1',
-      part_count: ['loser'],
-    },
-    {
-      key: '3',
-      title: 'Joe Black',
-      typeName: 32,
-      addTime: 'Sidney No. 1 Lake Park',
-      view_count: '1',
-      part_count: ['cool', 'teacher'],
-    },
-  ];
+  const getList = () => {
+    http.getArticleList()
+      .then(res => {
+        console.log(res)
+        setList(res);
+      })
+  }
+
+  useState(() => {
+    getList();
+  }, []);
+
+
   return (
-    <TableList columns={columns} data={data}></TableList>
+    <TableList columns={columns} data={list}></TableList>
   )
 }
 
