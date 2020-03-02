@@ -1,14 +1,17 @@
 import React, {useState} from 'react'
-import {Affix, Icon, Breadcrumb} from 'antd'
+import { CalendarOutlined, FolderOutlined, FireOutlined } from '@ant-design/icons';
+import { Affix, Breadcrumb } from 'antd';
+
+import marked from 'marked'
+import hljs from 'highlight.js'
 
 import Author from '../../components/Author'
 import Advert from '../../components/Advert'
-import marked from 'marked'
-import hljs from 'highlight.js'
-import 'highlight.js/styles/monokai-sublime.css'
-import '../../public/style/pages/detailed.css'
+import Layout from '../../components/Layout'
 import Tocify from '../../components/tocify.tsx'
-import Layout from "../../components/Layout";
+
+import '../../public/style/pages/detailed.css'
+import 'highlight.js/styles/monokai-sublime.css'
 
 const Detailed = (props) => {
   let markdown = '# P01:课程介绍和环境搭建\n' +
@@ -92,9 +95,9 @@ const Detailed = (props) => {
         </div>
 
         <div className="list-icon center">
-          <span><Icon type="calendar"/> 2019-06-28</span>
-          <span><Icon type="folder"/> 视频教程</span>
-          <span><Icon type="fire"/> 5498人</span>
+          <span><CalendarOutlined /> 2019-06-28</span>
+          <span><FolderOutlined /> 视频教程</span>
+          <span><FireOutlined /> 5498人</span>
         </div>
 
         <div className="detailed-content"
@@ -103,7 +106,7 @@ const Detailed = (props) => {
       </>
       />
     </Layout>
-  )
+  );
 }
 
 export default Detailed

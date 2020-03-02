@@ -2,14 +2,15 @@ import React, {useState, useEffect} from 'react'
 import '../public/style/components/header.css'
 import Router from 'next/router'
 
-import {Row, Col, Menu, Icon, Affix} from 'antd'
+import { HomeOutlined, YoutubeOutlined, SmileOutlined } from '@ant-design/icons';
+import { Row, Col, Menu, Affix } from 'antd';
 
 const Header = (props) => {
 
   let list = [
-    {key: 'home', className: '', path: '/', routerName: '首页', icon: 'home'},
-    {key: 'video', className: '', path: '/index/list', routerName: '视频', icon: 'youtube'},
-    {key: 'life', className: '', path: '/index/detailed', routerName: '生活', icon: 'smile'},
+    {key: 'home', className: '', path: '/', routerName: '首页', icon: <HomeOutlined />},
+    {key: 'video', className: '', path: '/index/list', routerName: '视频', icon: <YoutubeOutlined />},
+    {key: 'life', className: '', path: '/index/detailed', routerName: '生活', icon: <SmileOutlined />},
   ]
 
   const [routeList, setRouterList] = useState(list);
@@ -50,7 +51,7 @@ const Header = (props) => {
                   <Menu.Item key={item.key}
                              className={item.className}
                              onClick={() => goToPage(item.path)}>
-                    <Icon type={item.icon}/>
+                    {item.icon}
                     {item.routerName}
                   </Menu.Item>
                 ))
@@ -60,7 +61,7 @@ const Header = (props) => {
         </Row>
       </Affix>
     </div>
-  )
+  );
 }
 
 export default Header

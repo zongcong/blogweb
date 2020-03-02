@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-import {List, Icon} from 'antd'
+import { CalendarOutlined, FolderOutlined, FireOutlined } from '@ant-design/icons';
+import { List } from 'antd';
 import Author from '../components/Author'
 import Advert from '../components/Advert'
 import Layout from '../components/Layout'
@@ -38,16 +39,16 @@ const Home = (props) => {
           <List.Item>
             <div className="list-title">{item.title}</div>
             <div className="list-icon">
-              <span><Icon type="calendar"/> 2019-06-28</span>
-              <span><Icon type="folder"/> 视频教程</span>
-              <span><Icon type="fire"/> 5498人</span>
+              <span><CalendarOutlined /> 2019-06-28</span>
+              <span><FolderOutlined /> 视频教程</span>
+              <span><FireOutlined /> 5498人</span>
             </div>
             <div className="list-context">{item.context}</div>
           </List.Item>
         )}
       />
     </Layout>
-  )
+  );
 }
 
 export default Home

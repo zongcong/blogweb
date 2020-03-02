@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import {Row, Col} from 'antd'
+import '../public/style/pages/comm.css'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 
