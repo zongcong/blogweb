@@ -1,5 +1,6 @@
 import React, {useState, useRef} from 'react';
 import TableList from '../components/Table';
+import { FormOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Divider, Button, Tag} from 'antd';
 
 function MessageList(props) {
@@ -31,12 +32,12 @@ function MessageList(props) {
       render: (text, record) => (
         <>
           <Button type="primary"
-                  className='mr15'
                   size='small'
-                  icon="form" />
+                  className='mr15'
+                  icon={<FormOutlined />} />
           <Button type="danger"
                   size='small'
-                  icon="delete" />
+                  icon={<DeleteOutlined />} />
         </>
       ),
     },

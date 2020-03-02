@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {Card, Input, Icon, Button, Spin} from 'antd';
+import { UserOutlined, KeyOutlined } from '@ant-design/icons';
+import { Card, Input, Button, Spin } from 'antd';
 import { withRouter } from 'react-router-dom';
 import http from '../api';
 import {History} from "../utils";
@@ -52,7 +53,7 @@ function Login(props) {
                  placeholder='请输入你的用户名'
                  defaultValue={phone}
                  onChange={(e) => {setPhone(e.target.value)}}
-                 prefix={<Icon type='user' style={{color: 'rgba(0, 0, 0, .25)'}}></Icon>} />
+                 prefix={<UserOutlined style={{color: 'rgba(0, 0, 0, .25)'}}/>} />
           <Input.Password
                  id='password'
                  size='large'
@@ -60,7 +61,7 @@ function Login(props) {
                  placeholder='请输入你的密码'
                  defaultValue={password}
                  onChange={(e) => {setPassword(e.target.value)}}
-                 prefix={<Icon type='key' style={{color: 'rgba(0, 0, 0, .25)'}}></Icon>} />
+                 prefix={<KeyOutlined style={{color: 'rgba(0, 0, 0, .25)'}} />} />
           <Button type='primary'
                   size='large'
                   block

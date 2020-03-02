@@ -1,4 +1,6 @@
 import React,{useState, useRef} from 'react';
+import { FormOutlined, DeleteOutlined } from '@ant-design/icons';
+
 import { Modal, message, Tag, Button } from 'antd';
 import http from '../api';
 import TableList from "../components/Table";
@@ -67,10 +69,10 @@ function ArticleList(props) {
           <Button type="primary"
                   size='small'
                   className='mr15'
-                  icon="form" />
+                  icon={<FormOutlined />} />
           <Button type="danger"
                   size='small'
-                  icon="delete" />
+                  icon={<DeleteOutlined />} />
         </>
       ),
     },

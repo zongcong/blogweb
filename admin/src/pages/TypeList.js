@@ -1,5 +1,6 @@
 import React, {useState, useRef} from 'react';
 import TableList from '../components/Table';
+import { FormOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Divider, Button, Tag} from 'antd';
 
 function TypeList(props) {
@@ -33,10 +34,10 @@ function TypeList(props) {
           <Button type="primary"
                   size='small'
                   className='mr15'
-                  icon="form" />
+                  icon={<FormOutlined />} />
           <Button type="danger"
                   size='small'
-                  icon="delete" />
+                  icon={<DeleteOutlined />} />
         </>
       ),
     },

@@ -1,5 +1,7 @@
 import React,{useState, useEffect} from 'react';
-import { Layout, Menu, Breadcrumb, Icon, Button, message, Modal } from 'antd';
+import { PieChartOutlined, DesktopOutlined, BulbOutlined, TagsOutlined, MessageOutlined, LogoutOutlined } from '@ant-design/icons';
+
+import { Layout, Menu, Breadcrumb, Button, message, Modal } from 'antd';
 import '../style/AdminIndex.less';
 import {History} from "../utils";
 import http from '../api';
@@ -108,13 +110,13 @@ function AdminIndex(props){
               selectedKeys={defaultSelectedKeys}
               mode="inline">
           <Menu.Item key="1">
-            <Icon type="pie-chart" />
+            <PieChartOutlined />
             <span>工作台</span>
           </Menu.Item>
           <SubMenu key="sub1"
                    title={
                      <span>
-                       <Icon type="desktop" />
+                       <DesktopOutlined />
                        <span>文章管理</span>
                      </span>}>
             <Menu.Item key="addArticle">添加文章</Menu.Item>
@@ -122,15 +124,15 @@ function AdminIndex(props){
           </SubMenu>
 
           <Menu.Item key="type">
-            <Icon type="bulb" />
+            <BulbOutlined />
             <span>类型管理</span>
           </Menu.Item>
           <Menu.Item key="tag">
-            <Icon type="tags" />
+            <TagsOutlined />
             <span>标签管理</span>
           </Menu.Item>
           <Menu.Item key="message">
-            <Icon type="message" />
+            <MessageOutlined />
             <span>留言管理</span>
           </Menu.Item>
         </Menu>
@@ -142,7 +144,7 @@ function AdminIndex(props){
           <Button type="primary"
                   className='mr15'
                   onClick={loginOut}
-                  icon="logout" />
+                  icon={<LogoutOutlined />} />
         </Header>
         <Content className='content'>
           <Breadcrumb style={{ margin: '16px 0' }}>
@@ -156,7 +158,7 @@ function AdminIndex(props){
         <Footer className='tc'>tzc.com</Footer>
       </Layout>
     </Layout>
-  )
+  );
 }
 
 export default AdminIndex;
