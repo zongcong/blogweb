@@ -30,8 +30,13 @@ function MessageList(props) {
       key: 'actions',
       render: (text, record) => (
         <>
-          <Button type="primary" className='mr15' icon="form" />
-          <Button type="danger" icon="delete" />
+          <Button type="primary"
+                  className='mr15'
+                  size='small'
+                  icon="form" />
+          <Button type="danger"
+                  size='small'
+                  icon="delete" />
         </>
       ),
     },

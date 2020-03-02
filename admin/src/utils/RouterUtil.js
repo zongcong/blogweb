@@ -1,3 +1,5 @@
+import {History} from "./index";
+
 var routerHistory;
 
 const initRouter = (history) => {
@@ -43,7 +45,7 @@ const action = () => {
 }
 
 const length = () => {
-  return routerHistory.length
+  return routerHistory.length;
 }
 
 export default {

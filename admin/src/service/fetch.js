@@ -2,9 +2,13 @@
  **axios服务配置文件
  */
 import axios from 'axios';
-import { message } from 'antd';
+import { message, Modal } from 'antd';
 import QS from 'qs';
-import config from '../config'
+import config from '../config';
+import {History} from "../utils";
+
+const { warning } = Modal;
+
 // 创建实例
 const service = axios.create({
   baseURL: config.BASE_API, // 使用代理
@@ -34,8 +38,10 @@ service.interceptors.request.use(
     if (config.data && config.data instanceof FormData) {
       // 图片上传
       config.headers['Content-Type'] = 'multipart/form-data'
+    } else if(config.method === 'get') {
+      config.params = config.data;
     } else {
-      config.data = QS.stringify(config.data)
+      config.data = QS.stringify(config.data);
     }
     // Do something before request is sent
     config.withCredentials = true;
@@ -83,6 +89,17 @@ const fetch = function (config) {
           resolve(resolves);
         } else {
           message.warning(result.data.desc);
+          console.log(result.data.code)
+          if (result.data.code === '20009') {
+            window.sessionStorage.setItem('isLogin', false);
+            warning({
+              title: '登录信息失效警告',
+              content: '登录信息已失效，请重新登录你的账号',
+              onOk() {
+                History.replace('/')
+              },
+            });
+          }
           reject(result);
         }
 

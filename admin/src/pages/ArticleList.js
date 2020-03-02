@@ -7,6 +7,8 @@ const {confirm} = Modal;
 
 function ArticleList(props) {
   const [list, setList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [total, setTotal] = useState(0);
   const columns = [
     {
       title: '标题',
@@ -62,20 +64,38 @@ function ArticleList(props) {
       key: 'actions',
       render: (text, record) => (
         <>
-          <Button type='primary'>修改</Button>
-          <Button>删除</Button>
+          <Button type="primary"
+                  size='small'
+                  className='mr15'
+                  icon="form" />
+          <Button type="danger"
+                  size='small'
+                  icon="delete" />
         </>
       ),
     },
   ];
 
-  const getList = () => {
-    http.getArticleList()
+  const getList = (page = 1, pageSize = 10) => {
+    let data = {
+      page,
+      pageSize
+    };
+    http.getArticleList(data)
       .then(res => {
         console.log(res)
-        setList(res);
+        setList(res.data);
+        setLoading(false);
+        setTotal(res.total);
+      })
+      .catch(err => {
+        setLoading(false);
       })
   }
+
+  const onChange = (pagination) => {
+    getList(pagination.current);
+  };
 
   useState(() => {
     getList();
@@ -83,7 +103,11 @@ function ArticleList(props) {
 
 
   return (
-    <TableList columns={columns} data={list}></TableList>
+    <TableList columns={columns}
+               loading={loading}
+               total={total}
+               onChange={onChange}
+               data={list}></TableList>
   )
 }
 

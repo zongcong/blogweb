@@ -30,8 +30,13 @@ function TypeList(props) {
       key: 'actions',
       render: (text, record) => (
         <>
-          <Button type="primary" className='mr15' icon="form" />
-          <Button type="danger" icon="delete" />
+          <Button type="primary"
+                  size='small'
+                  className='mr15'
+                  icon="form" />
+          <Button type="danger"
+                  size='small'
+                  icon="delete" />
         </>
       ),
     },

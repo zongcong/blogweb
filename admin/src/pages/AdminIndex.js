@@ -1,9 +1,13 @@
 import React,{useState, useEffect} from 'react';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Button, message, Modal } from 'antd';
 import '../style/AdminIndex.less';
 import {History} from "../utils";
+import http from '../api';
+
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
+const { confirm } = Modal;
+
 
 
 function AdminIndex(props){
@@ -73,6 +77,23 @@ function AdminIndex(props){
     }
   }
 
+  const loginOut = () => {
+    confirm({
+      title: '是否退出登录？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk() {
+        http.loginOut()
+          .then(res => {
+            console.log(res)
+            window.sessionStorage.setItem('isLogin', false);
+            message.success('退出成功');
+            History.replace('/');
+          });
+      },
+    });
+  }
+
   return (
     <Layout className='min-height'>
       <Sider collapsible
@@ -116,8 +137,13 @@ function AdminIndex(props){
       </Sider>
       <Layout className='layout'
               style={{marginLeft: collapsed ? 80 : 200}}>
-        <Header className='header'
-                style={{left: collapsed ? 80 : 200}} />
+        <Header className='header tr'
+                style={{left: collapsed ? 80 : 200, paddingRight: collapsed ? 80 : 200}}>
+          <Button type="primary"
+                  className='mr15'
+                  onClick={loginOut}
+                  icon="logout" />
+        </Header>
         <Content className='content'>
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>后台管理</Breadcrumb.Item>
@@ -133,4 +159,4 @@ function AdminIndex(props){
   )
 }
 
-export default AdminIndex
+export default AdminIndex;

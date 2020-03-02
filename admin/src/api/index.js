@@ -1,4 +1,4 @@
-import * as download from './download';
+import * as download from './api';
 
 const APIS = Object.assign(download);
 

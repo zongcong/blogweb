@@ -46,7 +46,6 @@ function MarkdownEditor(props, ref) {
     editor.on('change', () => {
       getValue()
     });
-    console.log('init', editor);
   };
 
   useEffect(() => {
@@ -54,7 +53,6 @@ function MarkdownEditor(props, ref) {
     return() => {
       if (!editor) return;
       editor.off('change');
-      console.log('remove', editor);
       editor.remove();
     }
   });
@@ -72,7 +70,6 @@ function MarkdownEditor(props, ref) {
   }
 
   const getHtml = () => {
-    console.log(editor)
     return editor.getHtml()
   }
 

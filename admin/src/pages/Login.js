@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Card, Input, Icon, Button, Spin} from 'antd';
+import { withRouter } from 'react-router-dom';
 import http from '../api';
 import {History} from "../utils";
 import {JSA} from '../config'
@@ -20,6 +21,7 @@ function Login(props) {
     http.login(data)
       .then(res => {
         setIsLoading(false);
+        window.sessionStorage.setItem('isLogin', true);
         History.replace('/index');
       })
       .catch(err => {
@@ -70,4 +72,4 @@ function Login(props) {
   );
 }
 
-export default Login;
+export default withRouter(Login);
